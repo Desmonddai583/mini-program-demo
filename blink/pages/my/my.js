@@ -25,7 +25,7 @@ Page({
   },
 
   onShow(options) {
-    this.userAuthorized1()
+    this.userAuthorized2()
     this.getMyBookCount()
     this.getMyFavor()
     // wx.getUserInfo({
@@ -61,7 +61,7 @@ Page({
         return false
       })
       .then(data => {
-        if (!data) return 
+        if (!data) return
         this.setData({
           authorized: true,
           userInfo: data.userInfo
@@ -69,6 +69,17 @@ Page({
       })
   },
 
+  async userAuthorized2() {
+    const data = await promisic(wx.getSetting)()
+    if (data.authSetting['scope.userInfo']) {
+      const res = await promisic(wx.getUserInfo)()
+      const userInfo = res.userInfo
+      this.setData({
+        authorized: true,
+        userInfo
+      })
+    }
+  },
 
   userAuthorized() {
     wx.getSetting({
@@ -86,8 +97,6 @@ Page({
       }
     })
   },
-
-
 
   onGetUserInfo(event) {
     const userInfo = event.detail.userInfo
@@ -111,27 +120,12 @@ Page({
     })
   },
 
-  onJumpToDetail(event){
+  onJumpToDetail(event) {
     const cid = event.detail.cid
     const type = event.detail.type
     // wx.navigateTo
     wx.navigateTo({
-      url:`/pages/classic-detail/classic-detail?cid=${cid}&type=${type}`
+      url: `/pages/classic-detail/classic-detail?cid=${cid}&type=${type}`
     })
   }
-
-
 })
-
-
-
-
-
-
-
-
-
-    // wx.navigateTo({
-    //   url:`/pages/classic-detail/index?cid=${cid}
-    //     &type=${type}`
-    // })

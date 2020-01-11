@@ -40,8 +40,8 @@
   
 
 .share-btn {
-    margin-top: 28rpx;
-    margin-left: 10rpx;
+    margin-top: 10rpx !important;
+    margin-left: 10rpx !important;
 }
 
 .share {
